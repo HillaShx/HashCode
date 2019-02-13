@@ -1,4 +1,12 @@
-def find_c_in_radius(H, W, D, c):
+import numpy as np
+
+Map = np.zeros((4,7), dtype=int)
+Map[0][1] = 4
+Map[1][0] = 4
+Map[1][1] = 4
+Map[2][1] = 4
+
+def find_c_in_c_radius(H, W, D, c):
     # H - int
     # W - int
     # D - int
@@ -21,6 +29,15 @@ def find_c_in_radius(H, W, D, c):
                 coor_list.append((y,x))
     return list(filter(lambda x: x != c, coor_list))
 
-# next step: check only the coordinates within the radius and not all over the board)
+def find_c_in_building_radius(Map, v, D):
+    # map - matrix
+    # c - tuple
+    # D - int
+    building_c = list(zip(*np.where(Map == v))) # zip(*np.where(map == 2))
+    surrounding_c = []
+    for i in building_c:
+        surrounding_c = surrounding_c + find_c_in_c_radius(len(Map), len(Map[0]), D, i)
+    surrounding_c = [x for x in surrounding_c if x not in building_c]
+    return list(set(surrounding_c))
 
-print(find_c_in_radius(4,7,2,(3,6)))
+# next step: a function to find how many different utility buildings are within radius.
