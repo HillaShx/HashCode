@@ -55,8 +55,9 @@ def find_c_in_building_radius(Map, v, D):
     uti_c = list(set(x for x in surrounding_c if x not in irrel_c))
     return uti_c
 
-# c_list = find_c_in_building_radius(Map, 4, 2)
-# uti_buildings = {7:(0,5) , 8:(4,6)}
+c_list = find_c_in_building_radius(Map, 4, 2)
+uti_buildings = {7:(0,5) , 8:(4,6)}
+resi_buildings = {4:(2,100)}
 
 def get_unique_uti(Map, c_list, uti_buildings):
     """
@@ -65,12 +66,24 @@ def get_unique_uti(Map, c_list, uti_buildings):
     """
     # v_list - list
     # utibuildings - dict
+    diff_uti_index = []
     diff_uti_types = []
     for i in c_list:
-        if Map[i[0]][i[1]] not in diff_uti_types:
-            diff_uti_types.append(Map[i[0]][i[1]])
+        if Map[i[0]][i[1]] not in diff_uti_index:
+            if uti_buildings[Map[i[0]][i[1]]][1] not in diff_uti_types:
+                diff_uti_types.append(uti_buildings[Map[i[0]][i[1]]][1])
+            diff_uti_index.append(Map[i[0]][i[1]])
     return len(diff_uti_types)
 
-# print(get_unique_uti(Map, c_list, uti_buildings))
+n_of_uti = get_unique_uti(Map, c_list, uti_buildings)
 
-# next step: a function to calculate how much points this r building adds to our score.
+def get_score_for_r(n_of_uti, r_index):
+    """
+    returns score for a given residency
+    recieves amount of utility buildings within radius of given building, and a residential building
+    """
+    return n_of_uti * resi_buildings[r_index][1]
+
+print(get_score_for_r(n_of_uti,4))
+
+# next step: connecting everything I've done so far with the main script?
