@@ -1,15 +1,17 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[3]:
+# In[68]:
 
 
 import numpy as np
 import io
 from itertools import groupby
+from itertools import permutations 
+from copy import copy, deepcopy
 
 
-# In[4]:
+# In[70]:
 
 
 class Building():
@@ -52,6 +54,13 @@ class Terrain():
         self.matrix= np.zeros((H,W), dtype=int)
     def set_matrix(self, matrix):
         self.matrix=matrix
+    def copy(self):
+        t=Terrain()
+        t.H=self.H
+        t.W=self.W
+        t.matrix= deepcopy(self.matrix)
+        return t
+        
 
     def CheckInsert(self,building,coordinate):
         can_fit=0
@@ -111,7 +120,7 @@ class TerrainIndex:
         
 class Map:
     def __init__(self, terrain):
-        self.t=terrain
+        self.t=terrain.copy()
         self.ti=TerrainIndex()    
         self.plan=Plan()
         self.MapIndex=1 #every building put on the map gets an ordinal! 
@@ -130,7 +139,7 @@ class Solution:
         self.score=0        
 
 
-# In[8]:
+# In[81]:
 
 
 def initialize_from_description(input_file):
@@ -185,13 +194,42 @@ def initialize_from_description(input_file):
         #print(data[1,:])
                 
     return (terrain, building_list, D)
-    
-def suggest_solutions (terrain, buildings, MaxDistance):
-    terrains= list([])
-    plans= list([])
-    return (terrains, plans)
+ 
+def create_map_with_perm(terrain,buildings, perm):
+    MyMap=Map(terrain)
+    still_place=1
+    while (still_place):
+        success_flag=0
+        for ProjIndx in perm:
+            #print(buildings[ProjIndx].matrix)
+            i=0
+            while (i<=terrain.H):
+                j=0
+                while (j<=terrain.W):
+#                         print(i,j)
+                    if MyMap.CheckInsert(buildings[ProjIndx],(i,j)):
+                        MyMap.AddBuildingIntoMap(buildings[ProjIndx],(i,j))
+                        success_flag=1
+                        i=terrain.H+1
+                        j=terrain.W+1
+                    j+=1
+                i+=1  
+        if not(success_flag):
+            still_place=0  
+    return MyMap        
+            
 
-def score_plan(terrain):
+def suggest_solutions (terrain, buildings, MaxDistance):
+    MapsList= list()
+    permuts = list(permutations(range(0, len(buildings)))) 
+    print(permuts)
+    for perm in permuts:
+        print(perm)
+        CurrMap=create_map_with_perm(terrain, buildings, perm)
+        MapsList.append(CurrMap)
+    return (MapsList)
+
+def scorer(Map,D):
         score=0
         return score
 def write_plan_to_file (plan, writeto_file):
@@ -199,7 +237,7 @@ def write_plan_to_file (plan, writeto_file):
     return
 
 
-# In[22]:
+# In[82]:
 
 
 def CityPlan (input_file_list, writeto_file_list):
@@ -208,41 +246,16 @@ def CityPlan (input_file_list, writeto_file_list):
 
     ############### map is going to go into solution, but it's here now ##########    
         MyMap=Map(terrain)
-        MyMap.AddBuildingIntoMap(buildings[0], (0,0))
-        
-        still_place=1
-        while (still_place):
-            success_flag=0
-            for building in buildings:
-                print(building.matrix)
-                i=0
-                while (i<=terrain.H):
-                    j=0
-                    while (j<=terrain.W):
-#                         print(i,j)
-                        if MyMap.CheckInsert(building,(i,j)):
-                            MyMap.AddBuildingIntoMap(building,(i,j))
-                            success_flag=1
-                            i=terrain.H+1
-                            j=terrain.W+1
-                        j+=1
-                    i+=1  
-            if not(success_flag):
-                still_place=0
-        
-#         for i in range(terrain.H):
-#             for j in range (terrain.W):
-#                 if MyMap.CheckInsert(buildings[2],(i,j)):
-#                     MyMap.AddBuildingIntoMap(buildings[2],(i,j))    
-   ###############################################################################     
-        terrains, plans= suggest_solutions(terrain, buildings, MaxDistance) 
-        scores=[0]
-        for j,terrain in enumerate(terrains): 
-            scores[j]= score_plan(terrain)
-#        write_plan_to_file (plans[np.argmax(scores)], writeto_file_list[0])
+
+        MapsList = suggest_solutions(terrain, buildings, MaxDistance) 
+        scores=np.zeros(len(MapsList))
+        for j,CurrMap in enumerate(MapsList): 
+            scores[j]= scorer(CurrMap,MaxDistance)
+        print(scores)
+#       write_plan_to_file (plans[np.argmax(scores)], writeto_file_list[0])
 
 
-# In[23]:
+# In[83]:
 
 
 CityPlan(list(['input1.txt']),list(['b.txt']))
@@ -262,6 +275,15 @@ for building in range(building):
             #put building in place
             j+=1
         i+=1    
+
+
+# In[67]:
+
+
+A=3
+B=A
+A=4
+print(B)
 
 
 # In[ ]:
