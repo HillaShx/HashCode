@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[5]:
-
-
 import numpy as np
 
 def scorer(Map, D):
@@ -12,9 +6,9 @@ def scorer(Map, D):
     W = Map.t.W
     uti_buildings = Map.ti.UtilityBuildings
     resi_buildings = Map.ti.ResidenceBuildings
-    
+
     Map=Map.t.matrix
-    
+
     def find_c_in_c_radius(H, W, D, c):
         """
         returns all of the spots within radius from a given spot on the map
@@ -70,10 +64,12 @@ def scorer(Map, D):
         diff_uti_index = []
         diff_uti_types = []
         for i in find_c_in_building_radius(Map, v, D):
-            if Map[i[0]][i[1]] not in diff_uti_index:
-                if uti_buildings[Map[i[0]][i[1]]][1] not in diff_uti_types:
-                    diff_uti_types.append(uti_buildings[Map[i[0]][i[1]]][1])
-                diff_uti_index.append(Map[i[0]][i[1]])
+            if Map[i[0]][i[1]] in uti_buildings.keys():
+                if Map[i[0]][i[1]] not in diff_uti_index:
+                    print("MAP!!!",Map[i[0]][i[1]])
+                    if uti_buildings[Map[i[0]][i[1]]][1] not in diff_uti_types:
+                        diff_uti_types.append(uti_buildings[Map[i[0]][i[1]]][1])
+                    diff_uti_index.append(Map[i[0]][i[1]])
         return len(diff_uti_types)
 
     def get_score_for_r(n_of_uti, r_index):
@@ -83,17 +79,8 @@ def scorer(Map, D):
         """
         return n_of_uti * resi_buildings[r_index][1]
 
-
-    # c_list = find_c_in_building_radius(Map, 4, 2)
     sum_ = 0
     for v in resi_buildings.keys():
         sum_ += get_score_for_r(get_unique_uti(Map, find_c_in_building_radius(Map, v, D), uti_buildings, v),v)
 
     return sum_
-
-
-# In[ ]:
-
-
-
-
