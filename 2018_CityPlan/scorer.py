@@ -1,9 +1,20 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[5]:
+
+
 import numpy as np
 
 def scorer(Map, D):
-    H = len(Map)
-    W = len(Map[0])
-
+    print("hello world")
+    H = Map.t.H
+    W = Map.t.W
+    uti_buildings = Map.ti.UtilityBuildings
+    resi_buildings = Map.ti.ResidenceBuildings
+    
+    Map=Map.t.matrix
+    
     def find_c_in_c_radius(H, W, D, c):
         """
         returns all of the spots within radius from a given spot on the map
@@ -74,25 +85,15 @@ def scorer(Map, D):
 
 
     # c_list = find_c_in_building_radius(Map, 4, 2)
-    uti_buildings = {7:(0,5) , 8:(4,6)}
-    resi_buildings = {4:(2,100)}
     sum_ = 0
     for v in resi_buildings.keys():
         sum_ += get_score_for_r(get_unique_uti(Map, find_c_in_building_radius(Map, v, D), uti_buildings, v),v)
 
     return sum_
 
-    # next step: connecting everything I've done so far with the main script?
 
-Map = np.zeros((4,7), dtype=int)
-Map[0][1] = 4
-Map[1][0] = 4
-Map[1][1] = 4
-Map[2][1] = 4
-Map[2][4] = 8
-Map[2][3] = 8
-Map[0][4] = 7
-Map[0][3] = 7
-D = 2
+# In[ ]:
 
-print(scorer(Map, D))
+
+
+
