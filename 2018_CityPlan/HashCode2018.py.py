@@ -1,16 +1,15 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[3]:
 
 
 import numpy as np
-import pandas as pd
 import io
 from itertools import groupby
 
 
-# In[16]:
+# In[4]:
 
 
 class Building():
@@ -26,9 +25,10 @@ class Building():
     def get_matrix(self):
         return self.matrix    
     def print_attributes(self):
-#       print(self.i,self.Btype,self.hp,self.wp,self.attribute,'\n',self.matrix)    
+#       print(self.i,self.Btype,self.hp,self.wp,self.attribute,'\n',self.matrix)
+        pass
 
-class Plan:
+class Plan():
     def __init__(self):
         self.TotalProjects=0
         self.buildings = list()
@@ -44,7 +44,7 @@ class Plan:
             output.append("%d %d %d" %(ProjectIndex, self.coordinates[i][0], self.coordinates[i][1]))
             for i in output:
                 print (i)
-        
+
 class Terrain():
     def __init__(self, H=0, W=0):
         self.H=H
@@ -130,7 +130,7 @@ class Solution:
         self.score=0        
 
 
-# In[23]:
+# In[8]:
 
 
 def initialize_from_description(input_file):
@@ -199,7 +199,7 @@ def write_plan_to_file (plan, writeto_file):
     return
 
 
-# In[24]:
+# In[22]:
 
 
 def CityPlan (input_file_list, writeto_file_list):
@@ -210,10 +210,30 @@ def CityPlan (input_file_list, writeto_file_list):
         MyMap=Map(terrain)
         MyMap.AddBuildingIntoMap(buildings[0], (0,0))
         
-        for i in range(terrain.H):
-            for j in range (terrain.W):
-                if MyMap.CheckInsert(buildings[2],(i,j)):
-                    MyMap.AddBuildingIntoMap(buildings[2],(i,j))    
+        still_place=1
+        while (still_place):
+            success_flag=0
+            for building in buildings:
+                print(building.matrix)
+                i=0
+                while (i<=terrain.H):
+                    j=0
+                    while (j<=terrain.W):
+#                         print(i,j)
+                        if MyMap.CheckInsert(building,(i,j)):
+                            MyMap.AddBuildingIntoMap(building,(i,j))
+                            success_flag=1
+                            i=terrain.H+1
+                            j=terrain.W+1
+                        j+=1
+                    i+=1  
+            if not(success_flag):
+                still_place=0
+        
+#         for i in range(terrain.H):
+#             for j in range (terrain.W):
+#                 if MyMap.CheckInsert(buildings[2],(i,j)):
+#                     MyMap.AddBuildingIntoMap(buildings[2],(i,j))    
    ###############################################################################     
         terrains, plans= suggest_solutions(terrain, buildings, MaxDistance) 
         scores=[0]
@@ -222,23 +242,26 @@ def CityPlan (input_file_list, writeto_file_list):
 #        write_plan_to_file (plans[np.argmax(scores)], writeto_file_list[0])
 
 
-# In[25]:
+# In[23]:
 
 
 CityPlan(list(['input1.txt']),list(['b.txt']))
 
 
-# In[5]:
+# In[21]:
 
 
-A=dict()
-A[1]=(2,3)
-
-
-# In[6]:
-
-
-print(A)
+H=2
+W=2
+for building in range(building):
+    i=0
+    while (i<=H):
+        j=0
+        while (j<=W):
+            print(i,j)
+            #put building in place
+            j+=1
+        i+=1    
 
 
 # In[ ]:
