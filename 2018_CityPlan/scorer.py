@@ -1,7 +1,6 @@
 import numpy as np
 
 def scorer(Map, D):
-    print("hello world")
     H = Map.t.H
     W = Map.t.W
     uti_buildings = Map.ti.UtilityBuildings
@@ -66,7 +65,6 @@ def scorer(Map, D):
         for i in find_c_in_building_radius(Map, v, D):
             if Map[i[0]][i[1]] in uti_buildings.keys():
                 if Map[i[0]][i[1]] not in diff_uti_index:
-                    print("MAP!!!",Map[i[0]][i[1]])
                     if uti_buildings[Map[i[0]][i[1]]][1] not in diff_uti_types:
                         diff_uti_types.append(uti_buildings[Map[i[0]][i[1]]][1])
                     diff_uti_index.append(Map[i[0]][i[1]])

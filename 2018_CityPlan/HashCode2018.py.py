@@ -1,18 +1,9 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[68]:
-
-
 import numpy as np
 import io
 from itertools import groupby
 from itertools import permutations
 from copy import copy, deepcopy
 from scorer import scorer
-
-
-# In[70]:
 
 
 class Building():
@@ -132,15 +123,13 @@ class Map:
         self.t.AddBuildingToTerrain(building, coordinates, self.MapIndex)
         self.plan.AddBuildingToPlan(building,coordinates)
         self.MapIndex=self.MapIndex+1
-        print(self.t.matrix)
+    def __str__(self):
+        return f"{self.plan.CreatePlanPrintout()}"
 
 class Solution:
     def __init__(self):
         self.m=self.Map()
         self.score=0
-
-
-# In[81]:
 
 
 def initialize_from_description(input_file):
@@ -222,12 +211,19 @@ def create_map_with_perm(terrain,buildings, perm):
 
 def suggest_solutions (terrain, buildings, MaxDistance):
     MapsList= list()
-    permuts = list(permutations(range(0, len(buildings))))
-    print(permuts)
-    for perm in permuts:
-        print(perm)
-        CurrMap=create_map_with_perm(terrain, buildings, perm)
-        MapsList.append(CurrMap)
+###############################################################
+#
+#     permuts = list(permutations(range(0, len(buildings))))
+###############################################################
+    perm = list(range(0, len(buildings)))
+    CurrMap=create_map_with_perm(terrain, buildings, perm)
+    MapsList.append(CurrMap)
+    # print(permuts)
+    # for perm in permuts:
+    #     print(perm)
+    #     CurrMap=create_map_with_perm(terrain, buildings, perm)
+    #     MapsList.append(CurrMap)
+
     return (MapsList)
 
 # def scorer(Map,D):
@@ -236,9 +232,6 @@ def suggest_solutions (terrain, buildings, MaxDistance):
 def write_plan_to_file (plan, writeto_file):
     #write plan to file
     return
-
-
-# In[82]:
 
 
 def CityPlan (input_file_list, writeto_file_list):
@@ -250,16 +243,12 @@ def CityPlan (input_file_list, writeto_file_list):
 
         MapsList = suggest_solutions(terrain, buildings, MaxDistance)
         scores=np.zeros(len(MapsList))
+        # print("yellow",len(MapsList))
         for j,CurrMap in enumerate(MapsList):
             scores[j]= scorer(CurrMap,MaxDistance)
+            # print(CurrMap)
         print(scores)
 #       write_plan_to_file (plans[np.argmax(scores)], writeto_file_list[0])
 
 
-# In[83]:
-
-
 CityPlan(list(['input1.txt']),list(['b.txt']))
-
-
-# In[21]:
