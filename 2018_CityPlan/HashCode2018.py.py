@@ -4,9 +4,15 @@ from itertools import groupby
 from itertools import permutations
 from copy import copy, deepcopy
 from scorer import scorer
+from PIL import Image
+import time
 
 
 class Building():
+    """
+
+
+    """
     def __init__(self,i,Btype,hp,wp,attribute):
         self.i=i # index in building list
         self.hp=hp
@@ -36,8 +42,8 @@ class Plan():
         output.append(str(self.TotalProjects))
         for i,ProjectIndex in enumerate(self.buildings):
             output.append("%d %d %d" %(ProjectIndex, self.coordinates[i][0], self.coordinates[i][1]))
-            for i in output:
-                print (i)
+        for i in output:
+            print (i)
 
 class Terrain():
     def __init__(self, H=0, W=0):
@@ -190,16 +196,21 @@ def create_map_with_perm(terrain,buildings, perm):
     still_place=1
     while (still_place):
         success_flag=0
+        last_seen_on = np.zeros((len(buildings), 2), dtype='int')
         for ProjIndx in perm:
             #print(buildings[ProjIndx].matrix)
-            i=0
-            while (i<=terrain.H):
-                j=0
-                while (j<=terrain.W):
+            hp=buildings[ProjIndx].hp
+            wp=buildings[ProjIndx].wp
+            last_coordinate=last_seen_on[ProjIndx]
+            i=last_coordinate[0]
+            while (i<=terrain.H-hp):
+                j=last_coordinate[1]
+                while (j<=terrain.W-wp):
 #                         print(i,j)
                     if MyMap.CheckInsert(buildings[ProjIndx],(i,j)):
                         MyMap.AddBuildingIntoMap(buildings[ProjIndx],(i,j))
                         success_flag=1
+                        last_seen_on[ProjIndx]=(i,j)
                         i=terrain.H+1
                         j=terrain.W+1
                     j+=1
@@ -217,6 +228,9 @@ def suggest_solutions (terrain, buildings, MaxDistance):
 ###############################################################
     perm = list(range(0, len(buildings)))
     CurrMap=create_map_with_perm(terrain, buildings, perm)
+    img = Image.fromarray(CurrMap.t.matrix,'I')
+    img.show()
+    print(CurrMap.t.matrix)
     MapsList.append(CurrMap)
     # print(permuts)
     # for perm in permuts:
@@ -246,9 +260,12 @@ def CityPlan (input_file_list, writeto_file_list):
         # print("yellow",len(MapsList))
         for j,CurrMap in enumerate(MapsList):
             scores[j]= scorer(CurrMap,MaxDistance)
+            print(CurrMap.__str__())
             # print(CurrMap)
         print(scores)
 #       write_plan_to_file (plans[np.argmax(scores)], writeto_file_list[0])
 
-
+start = time.time()
 CityPlan(list(['input1.txt']),list(['b.txt']))
+end = time.time()
+print("it took",end - start)
