@@ -42,8 +42,9 @@ class Plan():
         output.append(str(self.TotalProjects))
         for i,ProjectIndex in enumerate(self.buildings):
             output.append("%d %d %d" %(ProjectIndex, self.coordinates[i][0], self.coordinates[i][1]))
-        for i in output:
-            print (i)
+        # for i in output:
+        #     print (i)
+        return "\n".join(output)
 
 class Terrain():
     def __init__(self, H=0, W=0):
@@ -131,6 +132,9 @@ class Map:
         self.MapIndex=self.MapIndex+1
     def __str__(self):
         return f"{self.plan.CreatePlanPrintout()}"
+    def print_plan_into_file(self, filename):
+        with open(f"{filename}.txt", "w") as file:
+            file.write(self.plan.CreatePlanPrintout())
 
 class Solution:
     def __init__(self):
@@ -230,7 +234,7 @@ def suggest_solutions (terrain, buildings, MaxDistance):
     CurrMap=create_map_with_perm(terrain, buildings, perm)
     img = Image.fromarray(CurrMap.t.matrix,'I')
     img.show()
-    print(CurrMap.t.matrix)
+    # print(CurrMap.t.matrix)
     MapsList.append(CurrMap)
     # print(permuts)
     # for perm in permuts:
@@ -248,7 +252,7 @@ def write_plan_to_file (plan, writeto_file):
     return
 
 
-def CityPlan (input_file_list, writeto_file_list):
+def CityPlan (input_file_list, output_file_list):
     for i,input_file in enumerate(input_file_list):
         terrain, buildings, MaxDistance = initialize_from_description (input_file)
 
@@ -260,9 +264,11 @@ def CityPlan (input_file_list, writeto_file_list):
         # print("yellow",len(MapsList))
         for j,CurrMap in enumerate(MapsList):
             scores[j]= scorer(CurrMap,MaxDistance)
+            CurrMap.print_plan_into_file("output_"+str(j))
             print(CurrMap.__str__())
             # print(CurrMap)
         print(scores)
+
 #       write_plan_to_file (plans[np.argmax(scores)], writeto_file_list[0])
 
 start = time.time()
