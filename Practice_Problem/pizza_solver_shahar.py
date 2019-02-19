@@ -9,7 +9,10 @@ def create_mock_grid(dimentions=(5,10)):
     print(grid)
     return (grid)
 
-def pizza_solver(grid,tl_coordinates, br_coordinates, L, H,print_to_screen=False):
+def resolve_split_pizza_params(params1,params2,params3):
+    return(params1)
+
+def pizza_solver(grid,tl_coordinates, br_coordinates, L, H,print_to_screen=True):
 
     """
     gets first and second coordinates
@@ -30,6 +33,7 @@ def pizza_solver(grid,tl_coordinates, br_coordinates, L, H,print_to_screen=False
     Mcount=surface_size-Tcount
     if print_to_screen:
         # broadcast
+        print("limits of grid",tl_coordinates,br_coordinates)
         print("subgrid surface area",surface_size)
         print("grid slice:")
         print(grid[y1:y2,x1:x2])
@@ -45,14 +49,14 @@ def pizza_solver(grid,tl_coordinates, br_coordinates, L, H,print_to_screen=False
         return(best_params)
     else: #enough Mushrooms and Tomatoes
         if surface_size>H:
-            for row= range(x):
-                for col= range(y):
-                    best_params_right=resolve_split_pizza_params(pizza_solver(),
-                                                                     pizza_solver(),
-                                                                     pizza_solver())
-                    best_param_left=resolve_split_pizza_params(pizza_solver(),
-                                                                     pizza_solver(),
-                                                                     pizza_solver())
+            for row in range(1,x2-x1):
+                for col in range(1,y2-y1):
+                    best_params_right=resolve_split_pizza_params(pizza_solver(grid,tl_coordinates, (y1+row,x1+col), L, H),
+                                                                     pizza_solver(grid,(y1+row,x1), (y2,x1+row), L, H),
+                                                                     pizza_solver(grid,(y1,x1+row),br_coordinates,L,H))
+                    best_param_left=resolve_split_pizza_params(pizza_solver(grid,tl_coordinates, (y1+row,x1+col), L, H),
+                                                                     pizza_solver(grid,(y1,x1+row),((y1+col,x2)),L,H),
+                                                                     pizza_solver(grid,(y1+col,x1),br_coordinates,L,H))
                     if best_param_left[2]>best_params_right[2]:
                         if best_param_left[2]>best_params[2]:
                             best_params= best_param_left
@@ -67,13 +71,13 @@ def pizza_solver(grid,tl_coordinates, br_coordinates, L, H,print_to_screen=False
             return(number_of_slices, list_of_cuts, total_surface)
 
 
-    if !devide_further:
+    if not(divide_further):
         return(number_of_slices, list_of_cuts, total_surface)
     return surface_size
 
     #    return (number_of_slices, list_of_cuts, total_surface)
 
-pizza_solver(create_mock_grid(),(1,1),(5,10),5,6,print_to_screen=True)
+print(pizza_solver(create_mock_grid((5,10)),(0,0),(5,10),5,49,print_to_screen=True))
 
 def grid_slices():
     X=10
@@ -88,8 +92,6 @@ def grid_slices():
     print()
     for i in range(X):
         print(i,grid[2:4,1:i])
-
-
     return
 
 #grid_slices()
