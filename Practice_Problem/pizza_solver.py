@@ -1,4 +1,4 @@
-def pizza_solver(1coordinates, 2coordiantes, L, H):
+def pizza_solver(tl_coordinates, br_coordinates, L, H):
     """
     gets first and second coordinates
     L: int- the minimum number of 0 and 1 we need on the slice
@@ -8,10 +8,10 @@ def pizza_solver(1coordinates, 2coordiantes, L, H):
     1coordinate, 2coordinate: tupple (R,C)
     """
 
-    c1h=
-    c1w=
-    c2h=
-    c2w=
-    surface_size=
-    return(surface size)
+    c1h= 0
+    c1w= 0
+    c2h= 0
+    c2w= 0
+    surface_size= 0
+    return surface_size
     #    return (number_of_slices, list_of_cuts, total_surface)
