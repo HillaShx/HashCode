@@ -7,7 +7,7 @@ def initializer(input_file):
     return
 
 def output(solution,output_file):
-    
+
     return
 
 def solver(variableA,variableB,variableC):
