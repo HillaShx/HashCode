@@ -2,6 +2,8 @@ import numpy as np
 import io
 import time
 
+# CONFLICT!!!!!!!!!!
+
 class classA():
     def __init__(self,var1=0,var2=0):
         self.internal_var1=var1
@@ -19,6 +21,13 @@ class classA():
 def initializer(input_file):
     with open(input_file) as file:
         line = file.readline() # read first line
+        LineArr = np.fromstring(line, dtype=int, sep=' ')
+        variableA = LineArr[0]  #
+        variableB = LineArr[1]  #
+        variableC = LineArr[2]  #
+        #variableD = LineArr[3] #
+>>>>>>> eeff15f52816a704e4fae65f2b71ec44a47bbdc3
+
         variableA, variableB, variableC = np.fromstring(line, dtype=int, sep=' ')
         data = file.read() # read all other lines
         data2 = data.split('\n') # use the splitted info from file
@@ -34,12 +43,7 @@ def initializer(input_file):
         classAinstance=ClassA()
         classBinstance=ClassB()
 
-<<<<<<< HEAD
-def output(solution,output_file):
-    # writes the solution onto the output file
-=======
     return (variableA, variableB, variableC, classAinstance, classBinstance)
->>>>>>> eeff15f52816a704e4fae65f2b71ec44a47bbdc3
 
 def output(solution,output_file,print_to_screen=False):
     s = list()
