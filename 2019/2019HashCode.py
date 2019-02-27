@@ -21,13 +21,6 @@ class classA():
 def initializer(input_file):
     with open(input_file) as file:
         line = file.readline() # read first line
-        LineArr = np.fromstring(line, dtype=int, sep=' ')
-        variableA = LineArr[0]  #
-        variableB = LineArr[1]  #
-        variableC = LineArr[2]  #
-        #variableD = LineArr[3] #
->>>>>>> eeff15f52816a704e4fae65f2b71ec44a47bbdc3
-
         variableA, variableB, variableC = np.fromstring(line, dtype=int, sep=' ')
         data = file.read() # read all other lines
         data2 = data.split('\n') # use the splitted info from file
