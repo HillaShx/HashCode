@@ -18,6 +18,19 @@ class Picture(id,attribute,tags):
         return " ".join([str(i) for i in tags])
         #return f"{self.plan.CreatePlanPrintout()}"
 
+class slide():
+    def __init__(self):
+        self.content=list()
+    def add_H_pic(self,Vpic):
+        self.content.append(Vpic)
+        return
+    def add_2V_pic(self, Hpic1,Hpic2):
+        self.content.append((Hpic1,Hpic2))
+        return
+
+class slideshow():
+
+
 
 def initializer(input_file):
     with open(input_file) as file:
