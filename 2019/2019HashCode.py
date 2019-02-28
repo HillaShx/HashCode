@@ -29,6 +29,10 @@ class slide():
         return
 
 class slideshow():
+    def __init__(self):
+        self.order=list()
+    def insert_slide(self,slide):
+        self.order.append(slide)
 
 
 
@@ -76,7 +80,7 @@ def solver(variableA,variableB,variableC):
 
 def main(input_file, output_file):
     # runs the script in the correct order of executaion.
-    variableA, variableB, variableC= initializer(input_file)
+    numics, Hpictures,Vpictures= initializer(input_file)
     solution=solver(variableA,variableB,variableC)
     output(solution,output_file)
     return
