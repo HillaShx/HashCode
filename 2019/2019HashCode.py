@@ -2,21 +2,21 @@ import numpy as np
 import io
 import time
 
-# class Picture(id,attribute,tags):
-#     def __init__(self,id=0,attribute=0,tags):
-#         self.id=id
-#         self.attribute=""
-#         self.tags=list()
-#         return
-#     def inject_variables(self,attribute, tags):
-#         self.attribute=attribute
-#         self.tags=tags
-#         return
-#     def add_tag(self,tag):
-#         self.tags= self.tags.append(tag)
-#     def __str__(self):
-#         return " ".join([str(i) for i in tags])
-#         #return f"{self.plan.CreatePlanPrintout()}"
+class Picture():
+    def __init__(self,id,attribute,tags):
+        self.id=id
+        self.attribute=attribute
+        self.tags=tags
+        return
+    def inject_variables(self,attribute, tags):
+        self.attribute=attribute
+        self.tags=tags
+        return
+    def add_tag(self,tag):
+        self.tags= self.tags.append(tag)
+    def __repr__(self):
+        # return " ".join([str(i) for i in tags])
+        return f"Picture({self.id},{self.attribute},{self.tags})"
 
 class slide():
     def __init__(self):
@@ -29,7 +29,7 @@ class slide():
         return
 
 class slideshow():
-
+    pass
 
 
 def initializer(input_file):
@@ -42,10 +42,11 @@ def initializer(input_file):
             tags = []
             for t in range(2,int(properties[1])+1):
                 tags.append(properties[t])
-            print(tags)
-
             if properties[0] == "V":
-                vertic_pics.append()
+                vertic_pics.append(Picture(i,properties[0],tags))
+            else:
+                horiz_pics.append(Picture(i,properties[0],tags))
+        print(horiz_pics, vertic_pics)
 
         data = file.read() # read all other lines
         data2 = data.split('\n') # use the splitted info from file
@@ -61,7 +62,7 @@ def initializer(input_file):
         # classAinstance=ClassA()
         # classBinstance=ClassB()
 
-    # return (variableA, variableB, variableC, classAinstance, classBinstance)
+    return (num_of_pics, horiz_pics,vertic_pics)
 
 def output(solution,output_file,print_to_screen=False):
     s = list()
