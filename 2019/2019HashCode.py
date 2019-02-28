@@ -68,7 +68,7 @@ def initializer(input_file):
 
 
 
-    return (num_of_pics, horiz_pics,vertic_pics)
+    return (num_of_pics, horiz_pics,vertic_pics, tags_dict)
 
 def output(solution,output_file,print_to_screen=False):
     s = list()
@@ -98,7 +98,7 @@ def solver(num_of_pics, horiz_pics,vertic_pics):
 
 def main(input_file, output_file):
     # runs the script in the correct order of executaion.
-    num_of_pics, horiz_pics,vertic_pics= initializer(input_file)
+    num_of_pics, horiz_pics,vertic_pics, tags_dict= initializer(input_file)
     solution=solver(num_of_pics, horiz_pics,vertic_pics)
     output(solution,output_file)
     return
