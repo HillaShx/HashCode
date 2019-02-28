@@ -2,19 +2,20 @@ import numpy as np
 import io
 import time
 
-# CONFLICT!!!!!!!!!!
-
-class classA():
-    def __init__(self,var1=0,var2=0):
-        self.internal_var1=var1
-        self.internal_var2=var2
+class Picture(id,attribute,tags):
+    def __init__(self,id=0,attribute=0,tags):
+        self.id=id
+        self.attribute=""
+        self.tags=list()
         return
-    def inject_variables(self,var1,var2):
-        self.internal_var1=varA
-        self.internal_var2=varB
+    def inject_variables(self,attribute, tags):
+        self.attribute=attribute
+        self.tags=tags
         return
+    def add_tag(self,tag):
+        self.tags= self.tags.append(tag)
     def __str__(self):
-        return "string"
+        return " ".join([str(i) for i in tags])
         #return f"{self.plan.CreatePlanPrintout()}"
 
 
