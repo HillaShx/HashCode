@@ -7,7 +7,6 @@ class Picture(id,attribute,tags):
         self.id=id
         self.attribute=""
         self.tags=list()
-        return
     def inject_variables(self,attribute, tags):
         self.attribute=attribute
         self.tags=tags
@@ -33,13 +32,25 @@ class slideshow():
         self.order=list()
     def insert_slide(self,slide):
         self.order.append(slide)
-
-
+    def __str__(self):
+        s=str(length(self.order))
+            
 
 def initializer(input_file):
     with open(input_file) as file:
-        line = file.readline() # read first line
-        variableA, variableB, variableC = np.fromstring(line, dtype=int, sep=' ')
+        num_of_pics = int(file.readline())
+        horiz_pics = []
+        vertic_pics = []
+        for i in range(num_of_pics):
+            properties = file.readline().split()
+            tags = []
+            for t in range(2,int(properties[1])+1):
+                tags.append(properties[t])
+            print(tags)
+
+            if properties[0] == "V":
+                vertic_pics.append()
+
         data = file.read() # read all other lines
         data2 = data.split('\n') # use the splitted info from file
         # use data to understand stuff...
@@ -51,10 +62,10 @@ def initializer(input_file):
         #         matrix[i][j] = char == '#'
         #         #               print(matrix)
 
-        classAinstance=ClassA()
-        classBinstance=ClassB()
+        # classAinstance=ClassA()
+        # classBinstance=ClassB()
 
-    return (variableA, variableB, variableC, classAinstance, classBinstance)
+     return (numics, Hpictures,Vpictures)
 
 def output(solution,output_file,print_to_screen=False):
     s = list()
@@ -73,14 +84,20 @@ def output(solution,output_file,print_to_screen=False):
     # prints to file
     return
 
-def solver(variableA,variableB,variableC):
+def solver(num_of_pics, horiz_pics,vertic_pics):
+    slideshowInstance=slideshow()
+    for pic in horiz_pics:
+        slideInstance=slide()
+        slideInstance.add_H_pic(pic)
+        slideshowInstance.insert_slide(pic)
     # finds the solution
-    solution=[]
-    return solution
+    return slideshowInstance
 
 def main(input_file, output_file):
     # runs the script in the correct order of executaion.
-    numics, Hpictures,Vpictures= initializer(input_file)
-    solution=solver(variableA,variableB,variableC)
+    num_of_pics, horiz_pics,vertic_pics= initializer(input_file)
+    solution=solver(num_of_pics, horiz_pics,vertic_pics)
     output(solution,output_file)
     return
+
+initializer("a_example.txt")
