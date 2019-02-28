@@ -47,6 +47,11 @@ class slideshow():
         unique_i = len(set(slide_i.tags)-set(slide_j.tags))
         unique_j = len(set(slide_j.tags)-set(slide_i.tags))
         return min(same,unique_i,unique_j)
+    def slideshow_score(self):
+        self.score = 0
+        for i in range(len(self.order)+1):
+            self.score+=slide_pair_score(order[i],order[i+1])
+        return self.score
 
 
 def initializer(input_file):
