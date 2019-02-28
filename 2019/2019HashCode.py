@@ -42,15 +42,15 @@ class slideshow():
     def __str__(self):
         s=str(len(self.order))+"\n"+ "\n".join([str(i.content[0].id) for i in self.order])
         return s
-    def silde_pair_score(self, slide_i,slide_j):
+    def slide_pair_score(self, slide_i,slide_j):
         same = len(set(slide_i.tags)&set(slide_j.tags))
         unique_i = len(set(slide_i.tags)-set(slide_j.tags))
         unique_j = len(set(slide_j.tags)-set(slide_i.tags))
         return min(same,unique_i,unique_j)
     def slideshow_score(self):
         self.score = 0
-        for i in range(len(self.order)+1):
-            self.score+=slide_pair_score(order[i],order[i+1])
+        for i in range(len(self.order)-1):
+            self.score+=self.slide_pair_score(self.order[i],self.order[i+1])
         return self.score
 
 
@@ -73,7 +73,7 @@ def initializer(input_file):
                 vertic_pics.append(Picture(i,properties[0],tags))
             else:
                 horiz_pics.append(Picture(i,properties[0],tags))
-    print(tags_dict)
+    # print(tags_dict)
     return (num_of_pics, horiz_pics,vertic_pics, tags_dict)
 
 def output(solution,output_file,print_to_screen=False):
@@ -100,7 +100,7 @@ def solver(num_of_pics, horiz_pics,vertic_pics):
         slideInstance=slide()
         slideInstance.add_H_pic(pic)
         slideshowInstance.insert_slide(slideInstance)
-    print(slideshowInstance)
+    # print(slideshowInstance)
     # finds the solution
     return slideshowInstance
 
@@ -108,6 +108,7 @@ def main(input_file, output_file):
     # runs the script in the correct order of executaion.
     num_of_pics, horiz_pics,vertic_pics, tags_dict= initializer(input_file)
     solution=solver(num_of_pics, horiz_pics,vertic_pics)
+    print(solution.slideshow_score())
     output(solution,output_file)
     return
 
