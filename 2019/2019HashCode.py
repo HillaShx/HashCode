@@ -44,8 +44,6 @@ class slideshow():
         s=str(len(self.order))+"\n"+ "\n".join([str(i.content[0].id) for i in self.order])
         return s
     def slideshow_score(self):
-=======
-        s=str(len(self.order))+"\n"+ " ".join([str(i.content[0].id) for i in self.order])
     def silde_pair_score(self, slide_i,slide_j):
 >>>>>>> cda0d376c1577703fb9849fb2fe1fb31a5d0643b
         same=0
