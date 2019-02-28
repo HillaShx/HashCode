@@ -23,7 +23,7 @@ class slide():
         self.content=list()
         self.tags=list()
     def add_H_pic(self,Hpic):
-        self.content.append(Vpic)
+        self.content.append(Hpic)
         return
     def add_2V_pic(self, Vpic1,Vpic2):
         self.content.append((Vpic1,Vpic2))
@@ -40,6 +40,10 @@ class slideshow():
     def insert_slide(self,slide):
         self.order.append(slide)
     def __str__(self):
+<<<<<<< HEAD
+        s=str(len(self.order))+"\n"+ " ".join([str(i.content[0].id) for i in self.order])
+        return s
+=======
         s=str(length(self.order))
     def silde_pair_score(self, slide_i,slide_j):
         same=0
@@ -53,6 +57,7 @@ class slideshow():
             elif slide_i.tags[i] not in slide_j.tags:
                 unique_i+=1
         return min(same,unique_i,unique_j)
+>>>>>>> e1f51d5d60d5be1add70c42c313c54f1d36fac97
 
 
 def initializer(input_file):
@@ -76,10 +81,6 @@ def initializer(input_file):
             else:
                 horiz_pics.append(Picture(i,properties[0],tags))
     print(tags_dict)
-
-
-
-
     return (num_of_pics, horiz_pics,vertic_pics, tags_dict)
 
 def output(solution,output_file,print_to_screen=False):
@@ -102,9 +103,11 @@ def output(solution,output_file,print_to_screen=False):
 def solver(num_of_pics, horiz_pics,vertic_pics):
     slideshowInstance=slideshow()
     for pic in horiz_pics:
+        print("pic id:",pic.id)
         slideInstance=slide()
         slideInstance.add_H_pic(pic)
-        slideshowInstance.insert_slide(pic)
+        slideshowInstance.insert_slide(slideInstance)
+    print(slideshowInstance)
     # finds the solution
     return slideshowInstance
 
@@ -115,4 +118,5 @@ def main(input_file, output_file):
     output(solution,output_file)
     return
 
-initializer("a_example.txt")
+#initializer("a_example.txt")
+main("a_example.txt", "output_file.txt")
