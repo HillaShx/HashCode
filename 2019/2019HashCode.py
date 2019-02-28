@@ -43,9 +43,16 @@ class slideshow():
         s=str(len(self.order))+"\n"+ "\n".join([str(i.content[0].id) for i in self.order])
         return s
     def silde_pair_score(self, slide_i,slide_j):
-        same = len(set(slide_i.tags)&set(slide_j.tags))
-        unique_i = len(set(slide_i.tags)-set(slide_j.tags))
-        unique_j = len(set(slide_j.tags)-set(slide_i.tags))
+        same=0
+        unique_i = 0
+        unique_j = 0
+        for i in range(len(slide_i.tags)):
+            if slide_i.tags[i] in slide_j.tags:
+                same+=1
+            elif slide_j.tags[i] not in slide_i.tags:
+                unique_j+=1
+            elif slide_i.tags[i] not in slide_j.tags:
+                unique_i+=1
         return min(same,unique_i,unique_j)
 
 
@@ -107,4 +114,4 @@ def main(input_file, output_file):
     return
 
 #initializer("a_example.txt")
-main("a_example.txt", "output_file.txt")
+main("b_lovely_landscapes.txt", "output_file_b.txt")
