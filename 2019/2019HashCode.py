@@ -24,15 +24,20 @@ class slide():
         self.tags=list()
     def add_H_pic(self,Hpic):
         self.content.append(Hpic)
+        self.tags.append(self.add_tags(Hpic))
         return
     def add_2V_pic(self, Vpic1,Vpic2):
         self.content.append((Vpic1,Vpic2))
+        self.tags.append(self.add_tags(Vpic1))
+        self.tags.append(self.add_tags(Vpic2))
         return
-    def add_tags(self):
+    def add_tags(self,pic):
         for i in self.content:
-            self.tags.append(i.tags)
-        self.tags = list(set(self.tags))
-        return self.tags
+            for j in range(len(self.content)):
+                self.tags.append(i.tags[j])
+        # print("self.tage:",self.tags)
+        # self.tags = list(set(self.tags))
+        # return self.tags
 
 class slideshow():
     def __init__(self):
