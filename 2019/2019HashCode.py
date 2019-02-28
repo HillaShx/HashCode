@@ -41,6 +41,19 @@ class slideshow():
         self.order.append(slide)
     def __str__(self):
         s=str(length(self.order))
+    def slideshow_score(self):
+        same=0
+        unique_i = 0
+        unique_j = 0
+        for i in range(len(order)+1):
+            for j in range(len(order[i].tags)+1):
+                if order[i].tags[j] in order[i+1].tags:
+                    same+=1
+                elif order[j].tags[j] not in order[i+1].tags:
+                    unique_j+=1
+                elif i not in order[j+1]:
+                    unique_i+=1
+        return min(same,unique_i,unique_j)
 
 
 def initializer(input_file):
