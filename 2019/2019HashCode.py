@@ -5,14 +5,9 @@ import time
 class Picture():
     def __init__(self,id,attribute,tags):
         self.id=id
-<<<<<<< HEAD
-        self.attribute=""
-        self.tags=list()
-=======
         self.attribute=attribute
         self.tags=tags
         return
->>>>>>> 8eebc9b414bd4785772a3d8b3fa9dda46b409b83
     def inject_variables(self,attribute, tags):
         self.attribute=attribute
         self.tags=tags
@@ -68,20 +63,12 @@ def initializer(input_file):
                 vertic_pics.append(Picture(i,properties[0],tags))
             else:
                 horiz_pics.append(Picture(i,properties[0],tags))
-<<<<<<< HEAD
     print(tags_dict)
-=======
-        print(horiz_pics, vertic_pics)
->>>>>>> 8eebc9b414bd4785772a3d8b3fa9dda46b409b83
->>>>>>> 0957a6b036445e45649d921ed67171613e7512c3
 
 
 
-<<<<<<< HEAD
-     return (numics, Hpictures,Vpictures)
-=======
+
     return (num_of_pics, horiz_pics,vertic_pics)
->>>>>>> 8eebc9b414bd4785772a3d8b3fa9dda46b409b83
 
 def output(solution,output_file,print_to_screen=False):
     s = list()
@@ -111,13 +98,8 @@ def solver(num_of_pics, horiz_pics,vertic_pics):
 
 def main(input_file, output_file):
     # runs the script in the correct order of executaion.
-<<<<<<< HEAD
     num_of_pics, horiz_pics,vertic_pics= initializer(input_file)
     solution=solver(num_of_pics, horiz_pics,vertic_pics)
-=======
-    # variableA, variableB, variableC= initializer(input_file)
-    # solution=solver(variableA,variableB,variableC)
->>>>>>> 8eebc9b414bd4785772a3d8b3fa9dda46b409b83
     output(solution,output_file)
     return
 
