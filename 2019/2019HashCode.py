@@ -2,20 +2,26 @@ import numpy as np
 import io
 import time
 
-class Picture(id,attribute,tags):
-    def __init__(self,id=0,attribute=0,tags):
+class Picture():
+    def __init__(self,id,attribute,tags):
         self.id=id
+<<<<<<< HEAD
         self.attribute=""
         self.tags=list()
+=======
+        self.attribute=attribute
+        self.tags=tags
+        return
+>>>>>>> 8eebc9b414bd4785772a3d8b3fa9dda46b409b83
     def inject_variables(self,attribute, tags):
         self.attribute=attribute
         self.tags=tags
         return
     def add_tag(self,tag):
         self.tags= self.tags.append(tag)
-    def __str__(self):
-        return " ".join([str(i) for i in tags])
-        #return f"{self.plan.CreatePlanPrintout()}"
+    def __repr__(self):
+        # return " ".join([str(i) for i in tags])
+        return f"Picture({self.id},{self.attribute},{self.tags})"
 
 class slide():
     def __init__(self):
@@ -28,6 +34,7 @@ class slide():
         return
 
 class slideshow():
+<<<<<<< HEAD
     def __init__(self):
         self.order=list()
     def insert_slide(self,slide):
@@ -35,6 +42,10 @@ class slideshow():
     def __str__(self):
         s=str(length(self.order))
             
+=======
+    pass
+
+>>>>>>> 8eebc9b414bd4785772a3d8b3fa9dda46b409b83
 
 def initializer(input_file):
     with open(input_file) as file:
@@ -46,10 +57,18 @@ def initializer(input_file):
             tags = []
             for t in range(2,int(properties[1])+1):
                 tags.append(properties[t])
+<<<<<<< HEAD
             print(tags)
 
             if properties[0] == "V":
                 vertic_pics.append()
+=======
+            if properties[0] == "V":
+                vertic_pics.append(Picture(i,properties[0],tags))
+            else:
+                horiz_pics.append(Picture(i,properties[0],tags))
+        print(horiz_pics, vertic_pics)
+>>>>>>> 8eebc9b414bd4785772a3d8b3fa9dda46b409b83
 
         data = file.read() # read all other lines
         data2 = data.split('\n') # use the splitted info from file
@@ -65,7 +84,11 @@ def initializer(input_file):
         # classAinstance=ClassA()
         # classBinstance=ClassB()
 
+<<<<<<< HEAD
      return (numics, Hpictures,Vpictures)
+=======
+    return (num_of_pics, horiz_pics,vertic_pics)
+>>>>>>> 8eebc9b414bd4785772a3d8b3fa9dda46b409b83
 
 def output(solution,output_file,print_to_screen=False):
     s = list()
@@ -95,8 +118,13 @@ def solver(num_of_pics, horiz_pics,vertic_pics):
 
 def main(input_file, output_file):
     # runs the script in the correct order of executaion.
+<<<<<<< HEAD
     num_of_pics, horiz_pics,vertic_pics= initializer(input_file)
     solution=solver(num_of_pics, horiz_pics,vertic_pics)
+=======
+    # variableA, variableB, variableC= initializer(input_file)
+    # solution=solver(variableA,variableB,variableC)
+>>>>>>> 8eebc9b414bd4785772a3d8b3fa9dda46b409b83
     output(solution,output_file)
     return
 
