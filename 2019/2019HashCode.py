@@ -20,8 +20,13 @@ class classA():
 
 def initializer(input_file):
     with open(input_file) as file:
-        line = file.readline() # read first line
-        variableA, variableB, variableC = np.fromstring(line, dtype=int, sep=' ')
+        num_of_pics = int(file.readline())
+        horiz_pics = []
+        vertic_pics = []
+        for i in range(num_of_pics):
+            properties = file.readline().split()
+            if properties[i] == "V":
+                
         data = file.read() # read all other lines
         data2 = data.split('\n') # use the splitted info from file
         # use data to understand stuff...
@@ -33,10 +38,10 @@ def initializer(input_file):
         #         matrix[i][j] = char == '#'
         #         #               print(matrix)
 
-        classAinstance=ClassA()
-        classBinstance=ClassB()
+        # classAinstance=ClassA()
+        # classBinstance=ClassB()
 
-    return (variableA, variableB, variableC, classAinstance, classBinstance)
+    # return (variableA, variableB, variableC, classAinstance, classBinstance)
 
 def output(solution,output_file,print_to_screen=False):
     s = list()
@@ -62,7 +67,9 @@ def solver(variableA,variableB,variableC):
 
 def main(input_file, output_file):
     # runs the script in the correct order of executaion.
-    variableA, variableB, variableC= initializer(input_file)
-    solution=solver(variableA,variableB,variableC)
+    # variableA, variableB, variableC= initializer(input_file)
+    # solution=solver(variableA,variableB,variableC)
     output(solution,output_file)
     return
+
+initializer("a_example.txt")
