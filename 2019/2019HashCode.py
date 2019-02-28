@@ -40,20 +40,24 @@ class slideshow():
     def insert_slide(self,slide):
         self.order.append(slide)
     def __str__(self):
+<<<<<<< HEAD
         s=str(len(self.order))+"\n"+ "\n".join([str(i.content[0].id) for i in self.order])
         return s
     def slideshow_score(self):
+=======
+        s=str(len(self.order))+"\n"+ " ".join([str(i.content[0].id) for i in self.order])
+    def silde_pair_score(self, slide_i,slide_j):
+>>>>>>> cda0d376c1577703fb9849fb2fe1fb31a5d0643b
         same=0
         unique_i = 0
         unique_j = 0
-        for i in range(len(order)+1):
-            for j in range(len(order[i].tags)+1):
-                if order[i].tags[j] in order[i+1].tags:
-                    same+=1
-                elif order[j].tags[j] not in order[i+1].tags:
-                    unique_j+=1
-                elif i not in order[j+1]:
-                    unique_i+=1
+        for i in range(len(slide_i.tags)):
+            if slide_i.tags[i] in slide_j.tags:
+                same+=1
+            elif slide_j.tags[i] not in slide_i.tags:
+                unique_j+=1
+            elif slide_i.tags[i] not in slide_j.tags:
+                unique_i+=1
         return min(same,unique_i,unique_j)
 
 
@@ -64,7 +68,6 @@ def initializer(input_file):
         vertic_pics = []
         tags_dict = dict()
         for i in range(num_of_pics):
-            i = i+1
             properties = file.readline().split()
             tags = []
             for t in range(2,int(properties[1])+1):
