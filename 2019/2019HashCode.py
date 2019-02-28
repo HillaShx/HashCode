@@ -62,7 +62,6 @@ def initializer(input_file):
         vertic_pics = []
         tags_dict = dict()
         for i in range(num_of_pics):
-            i = i+1
             properties = file.readline().split()
             tags = []
             for t in range(2,int(properties[1])+1):
