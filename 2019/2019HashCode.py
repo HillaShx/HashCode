@@ -40,11 +40,7 @@ class slideshow():
     def insert_slide(self,slide):
         self.order.append(slide)
     def __str__(self):
-<<<<<<< HEAD
         s=str(len(self.order))+"\n"+ " ".join([str(i.content[0].id) for i in self.order])
-        return s
-=======
-        s=str(length(self.order))
     def silde_pair_score(self, slide_i,slide_j):
         same=0
         unique_i = 0
@@ -57,7 +53,6 @@ class slideshow():
             elif slide_i.tags[i] not in slide_j.tags:
                 unique_i+=1
         return min(same,unique_i,unique_j)
->>>>>>> e1f51d5d60d5be1add70c42c313c54f1d36fac97
 
 
 def initializer(input_file):
