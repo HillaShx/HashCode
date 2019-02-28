@@ -21,12 +21,18 @@ class Picture():
 class slide():
     def __init__(self):
         self.content=list()
-    def add_H_pic(self,Vpic):
+        self.tags=list()
+    def add_H_pic(self,Hpic):
         self.content.append(Vpic)
         return
-    def add_2V_pic(self, Hpic1,Hpic2):
-        self.content.append((Hpic1,Hpic2))
+    def add_2V_pic(self, Vpic1,Vpic2):
+        self.content.append((Vpic1,Vpic2))
         return
+    def add_tags(self):
+        for i in self.content:
+            self.tags.append(i.tags)
+        self.tags = list(set(self.tags))
+        return self.tags
 
 class slideshow():
     pass
@@ -37,30 +43,24 @@ def initializer(input_file):
         num_of_pics = int(file.readline())
         horiz_pics = []
         vertic_pics = []
+        tags_dict = dict()
         for i in range(num_of_pics):
+            i = i+1
             properties = file.readline().split()
             tags = []
             for t in range(2,int(properties[1])+1):
                 tags.append(properties[t])
+                if properties[t] not in tags_dict:
+                    tags_dict[properties[t]] = [i]
+                else:
+                    tags_dict[properties[t]].append(i)
             if properties[0] == "V":
                 vertic_pics.append(Picture(i,properties[0],tags))
             else:
                 horiz_pics.append(Picture(i,properties[0],tags))
-        print(horiz_pics, vertic_pics)
+    print(tags_dict)
 
-        data = file.read() # read all other lines
-        data2 = data.split('\n') # use the splitted info from file
-        # use data to understand stuff...
 
-        # matrix = np.zeros((hp, wp), dtype=int)
-        # for i in range(hp):
-        #     #                   print(data2[i+1])
-        #     for j, char in enumerate(data2[i + 1]):
-        #         matrix[i][j] = char == '#'
-        #         #               print(matrix)
-
-        # classAinstance=ClassA()
-        # classBinstance=ClassB()
 
     return (num_of_pics, horiz_pics,vertic_pics)
 
