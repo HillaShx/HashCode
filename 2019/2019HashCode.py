@@ -2,21 +2,21 @@ import numpy as np
 import io
 import time
 
-class Picture(id,attribute,tags):
-    def __init__(self,id=0,attribute=0,tags):
-        self.id=id
-        self.attribute=""
-        self.tags=list()
-        return
-    def inject_variables(self,attribute, tags):
-        self.attribute=attribute
-        self.tags=tags
-        return
-    def add_tag(self,tag):
-        self.tags= self.tags.append(tag)
-    def __str__(self):
-        return " ".join([str(i) for i in tags])
-        #return f"{self.plan.CreatePlanPrintout()}"
+# class Picture(id,attribute,tags):
+#     def __init__(self,id=0,attribute=0,tags):
+#         self.id=id
+#         self.attribute=""
+#         self.tags=list()
+#         return
+#     def inject_variables(self,attribute, tags):
+#         self.attribute=attribute
+#         self.tags=tags
+#         return
+#     def add_tag(self,tag):
+#         self.tags= self.tags.append(tag)
+#     def __str__(self):
+#         return " ".join([str(i) for i in tags])
+#         #return f"{self.plan.CreatePlanPrintout()}"
 
 
 def initializer(input_file):
@@ -26,8 +26,14 @@ def initializer(input_file):
         vertic_pics = []
         for i in range(num_of_pics):
             properties = file.readline().split()
-            if properties[i] == "V":
-                
+            tags = []
+            for t in range(2,int(properties[1])+1):
+                tags.append(properties[t])
+            print(tags)
+
+            if properties[0] == "V":
+                vertic_pics.append()
+
         data = file.read() # read all other lines
         data2 = data.split('\n') # use the splitted info from file
         # use data to understand stuff...
