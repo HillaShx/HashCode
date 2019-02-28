@@ -40,11 +40,8 @@ class slideshow():
     def insert_slide(self,slide):
         self.order.append(slide)
     def __str__(self):
-<<<<<<< HEAD
-        s=str(len(self.order))+"\n"+ " ".join([str(i.content[0].id) for i in self.order])
+        s=str(len(self.order))+"\n"+ "\n".join([str(i.content[0].id) for i in self.order])
         return s
-=======
-        s=str(length(self.order))
     def slideshow_score(self):
         same=0
         unique_i = 0
@@ -58,7 +55,6 @@ class slideshow():
                 elif i not in order[j+1]:
                     unique_i+=1
         return min(same,unique_i,unique_j)
->>>>>>> e1f51d5d60d5be1add70c42c313c54f1d36fac97
 
 
 def initializer(input_file):
@@ -85,14 +81,14 @@ def initializer(input_file):
     return (num_of_pics, horiz_pics,vertic_pics, tags_dict)
 
 def output(solution,output_file,print_to_screen=False):
-    s = list()
+    s = str(solution)
     # s.append(str(number_of_slices))
     # for cut in list_of_cuts:
     #     TR_coordinate = cut[0]
     #     BL_coordinate = cut[1]
     #     s.append(
     #         " ".join([str(i) for i in list([TR_coordinate[0], TR_coordinate[1], BL_coordinate[0], BL_coordinate[1]])]))
-    message = '\n'.join(s)
+    message = ''.join(s)
     if print_to_screen == True:
         print(message)
     text_file = open(output_file, "w")
